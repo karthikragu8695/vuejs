@@ -1,26 +1,19 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+<h1 class="text-center text-3xl font-bold">Employee Information</h1>
+<employee-information></employee-information>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import EmployeeInformation from './components/EmployeeInformation.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    EmployeeInformation
   }
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style scoped>
+
 </style>
