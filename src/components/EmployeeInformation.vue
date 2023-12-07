@@ -1,5 +1,5 @@
 <template>
-    <section  class="flex">
+    <section  class="flex ">
         <div class="mx-auto mt-10 ">
             <table  class="text-center">
                 <thead >
@@ -11,7 +11,7 @@
                 <tr v-for="employee in employees" :key="employee.id" class="p-3">
                     <td>{{ employee.id }}</td>
                     <td>{{ employee.name }}</td>
-                    <td>{{ employee.phone }}</td>
+                    <td>{{ employee.salary }}</td>
                     <td>{{ employee.designation }}</td>
                     <td>
                         <button @click="editEmp(employee)" class="mx-4 bg-green-600 px-4 border border-black">Edit</button>
@@ -23,19 +23,18 @@
         </div>
         <!---------------Dialog--------------------->
         <dialog :open="dialog" class="border border-black mt-10 p-10">
-            <div class=" ">
+            <div>
                <label class=" font-bold">Emp_ID</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;
                <input type="text" v-model="id"  placeholder="id"/><br><br>
                <label class=" font-bold">Emp_Name</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;
                <input type="text" v-model="name" placeholder="Name"/><br><br>
                <label class=" font-bold">Emp_Phone</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;
-               <input type="text"  v-model="phone"  placeholder="Phone"/><br><br>
+               <input type="text"  v-model="salary"  placeholder="Phone"/><br><br>
                <label class=" font-bold">Emp_Description</label>&nbsp;:&nbsp;&nbsp;
                <input type="text"  v-model="designation"  placeholder="designation"/><br><br>
                <button v-if="!editing"  @click="addEmp"  class="border border-black px-5 bg-green-500">Save</button>
-               <button v-else @click="updateEmp"  class="border border-black px-5 bg-blue-500">Update</button>
+               <button v-else @click="altUpd()"  class="border border-black px-5 bg-blue-500">Update</button>
                <button @click="close" class="border border-black px-5 bg-red-500  md:ml-10">Cancel</button>
-               
             </div>
         </dialog>
     </section>
@@ -49,7 +48,7 @@ export default{
             employees:[],
             id:'',
             name:'',
-            phone:'',
+            salary:'',
             designation:'',
             dialog:false,
             editing:false,
@@ -63,7 +62,7 @@ export default{
                 {
                     id:this.id,
                     name:this.name,
-                    phone:this.phone,
+                    salary:this.salary,
                     designation:this.designation
                 }
             )
@@ -77,7 +76,7 @@ export default{
         editEmp(emp){
             this.id=emp.id
             this.name=emp.name
-            this.phone=emp.phone
+            this.salary=emp.salary
             this.designation=emp.designation
             this.dialog=true
             this.editing=true
@@ -91,17 +90,27 @@ export default{
                 {
                     id:this.id,
                     name:this.name,
-                    phone:this.phone,
+                    salary:this.salary,
                     designation:this.designation
                 }
             )
             this.close()
         },
+        altUpd(){
+            const targetobj=this.employees.find(obj => obj.id==this.selectEmployee.id)
+            targetobj.id=this.id
+            targetobj.name=this.name
+            targetobj.salary=this.salary
+            targetobj.designation=this.designation
+            console.log(this.employees)
+            this.close()
+        },
+    
 
         close(){
             this.id=''
             this.name=''
-            this.phone=''
+            this.salary=''
             this.designation=''
             this.editing=false
             this.dialog=false
